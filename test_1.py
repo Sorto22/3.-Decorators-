@@ -1,11 +1,13 @@
 import os
 from datetime import datetime
+from functools import wraps
 
 
 def logger(old_function):
     path = 'main.log'
-    start_time = datetime.now()
+    @wraps(old_function)
     def new_function(*args, **kwargs):
+        start_time = datetime.now() #разобрался в чем была ошибка.
         result = old_function(*args, **kwargs)
         name_function = old_function.__name__
         with open(path, 'a') as log_file:

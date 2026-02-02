@@ -1,5 +1,6 @@
 from datetime import datetime
 import os
+from functools import wraps
 
 
 def logger(path):
@@ -7,9 +8,8 @@ def logger(path):
         return None
 
     def __logger(old_function):
-
         start_time = datetime.now()
-
+        @wraps(old_function)
         def new_function(*args, **kwargs):
             result = old_function(*args, **kwargs)
             name_function = old_function.__name__
